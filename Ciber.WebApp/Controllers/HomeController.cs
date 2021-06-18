@@ -20,6 +20,7 @@ namespace Ciber.WebApp.Controllers
 
         public IActionResult Index()
         {
+            //
             return View();
         }
 
