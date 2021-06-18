@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ciber.WebApp", "Ciber.WebApp\Ciber.WebApp.csproj", "{92F7EBBF-C175-492B-8CC6-9A526D929746}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ciber.Data", "Ciber.Data\Ciber.Data.csproj", "{CDDEBF6A-B8F0-41A9-8EBA-F5731A55739D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ciber.Services", "Ciber.Services\Ciber.Services.csproj", "{230E4CA5-7EE4-4698-96CD-9EBDFA2427EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{92F7EBBF-C175-492B-8CC6-9A526D929746}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92F7EBBF-C175-492B-8CC6-9A526D929746}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92F7EBBF-C175-492B-8CC6-9A526D929746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDDEBF6A-B8F0-41A9-8EBA-F5731A55739D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDDEBF6A-B8F0-41A9-8EBA-F5731A55739D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDDEBF6A-B8F0-41A9-8EBA-F5731A55739D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDDEBF6A-B8F0-41A9-8EBA-F5731A55739D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{230E4CA5-7EE4-4698-96CD-9EBDFA2427EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230E4CA5-7EE4-4698-96CD-9EBDFA2427EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230E4CA5-7EE4-4698-96CD-9EBDFA2427EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230E4CA5-7EE4-4698-96CD-9EBDFA2427EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
