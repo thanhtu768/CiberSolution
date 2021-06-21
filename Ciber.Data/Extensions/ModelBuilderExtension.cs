@@ -1,4 +1,6 @@
 ﻿using Ciber.Data.Enititys;
+using Ciber.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,11 +10,14 @@ namespace Ciber.Data.Extensions
 {
     public static class ModelBuilderExtension
     {
+        // Seed Identity
+        const string CUS_ID = "334D0EC7-5F04-4C52-8BF6-3957E82466D9";
+        // any guid, but nothing is against to use the same one
+        const string ROLE_ID = "D177A779-B8CB-460F-999F-EFA33E38AE30";
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Customer>().HasData(
-                    new Customer() { ID = 1, Name = "Thanh Tu", Address = "HaNoi", Password = "123" },
-                    new Customer() { ID = 2, Name = "Tuan Tu", Address = "HaNoi", Password = "123" }
+                    new Customer() { ID = 1, Name = "Thanh Tu", Address = "HaNoi", UserID = new Guid(CUS_ID)}
                 );
             modelBuilder.Entity<Category>().HasData(
                     new Category() { ID = 1, Name = "Paper", Description = "A1,A2,A3,A4" },
@@ -26,8 +31,36 @@ namespace Ciber.Data.Extensions
             modelBuilder.Entity<Order>().HasData(
                     new Order() {ID = 1, CustomerID = 1, ProductID = 1, Amount = 2, OrderDate = DateTime.Now },
                     new Order() { ID = 2, CustomerID = 1, ProductID = 2, Amount = 32, OrderDate = DateTime.Now },
-                    new Order() { ID = 3, CustomerID = 2, ProductID = 3, Amount = 11, OrderDate = DateTime.Now }
+                    new Order() { ID = 3, CustomerID = 1, ProductID = 3, Amount = 11, OrderDate = DateTime.Now }
                 );
+
+            
+            modelBuilder.Entity<Role>().HasData(new Role
+            {
+                Id = new Guid(ROLE_ID),
+                Name = "customer",
+                NormalizedName = "customer",
+                Description = "Customer Role"
+            });
+
+            var hasher = new PasswordHasher<AppUser>();
+            modelBuilder.Entity<AppUser>().HasData(new AppUser
+            {
+                Id = new Guid(CUS_ID),
+                UserName = "Thanh Tu",
+                NormalizedUserName = "customer",
+                Email = "thanhtu@gmail.com",
+                NormalizedEmail = "thanhtu@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "123qwe"),
+                SecurityStamp = string.Empty
+            });
+
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
+            {
+                RoleId = new Guid(ROLE_ID),
+                UserId = new Guid(CUS_ID)
+            });
         }
     }
 }

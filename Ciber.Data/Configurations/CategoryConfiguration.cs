@@ -12,6 +12,7 @@ namespace Ciber.Data.Configurations
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.ToTable("Categories");
+            builder.Property(x => x.ID).UseIdentityColumn();
             builder.HasKey(a => a.ID);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ciber.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,8 +9,9 @@ namespace Ciber.Data.Enititys
     {
         public string Name { get; set; }
         public string Address { get; set; }
-        public string Password { get; set; }
         public List<Order> Order { get; set; }
+        public Guid UserID { get; set; }
+        public AppUser AppUser { get; set; }
     }
 
 }

@@ -11,9 +11,10 @@ namespace Ciber.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
+            builder.Property(x => x.ID).UseIdentityColumn();
             builder.ToTable("Cutomers");
             builder.HasKey(a => a.ID);
-            
+            builder.HasOne(x => x.AppUser).WithOne(x => x.Customer).HasForeignKey<Customer>(x => x.UserID);
         }
     }
 }

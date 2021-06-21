@@ -11,6 +11,7 @@ namespace Ciber.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
+            builder.Property(x => x.ID).UseIdentityColumn();
             builder.ToTable("Products");
             builder.HasKey(a => a.ID);
             builder.HasOne(a => a.Category).WithMany(a => a.Product).HasForeignKey(a => a.CategoryID);
