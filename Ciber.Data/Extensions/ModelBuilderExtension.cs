@@ -47,8 +47,8 @@ namespace Ciber.Data.Extensions
             modelBuilder.Entity<AppUser>().HasData(new AppUser
             {
                 Id = new Guid(CUS_ID),
-                UserName = "Thanh Tu",
-                NormalizedUserName = "customer",
+                UserName = "TULT",
+                NormalizedUserName = "THANHTU",
                 Email = "thanhtu@gmail.com",
                 NormalizedEmail = "thanhtu@gmail.com",
                 EmailConfirmed = true,

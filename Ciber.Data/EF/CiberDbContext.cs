@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Ciber.Data.EF
 {
@@ -19,6 +18,7 @@ namespace Ciber.Data.EF
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             //modelBuilder.ApplyConfiguration(new ApplicationConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
@@ -41,5 +41,7 @@ namespace Ciber.Data.EF
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
     }
 }

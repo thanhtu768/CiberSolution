@@ -22,6 +22,10 @@ namespace Ciber.Services.Catalog.Orders
         }
         public async Task<int> Create(OrderCreateRequest obj)
         {
+            if(await IsAmountValid(obj) == false)
+            {
+                return -1;
+            }
             var order = new Order()
             {
                 CustomerID = obj.CustomerID,
@@ -30,7 +34,9 @@ namespace Ciber.Services.Catalog.Orders
                 OrderDate = DateTime.Now
             };
             _context.Orders.Add(order);
-            return await _context.SaveChangesAsync();
+             MinusQuantity(obj);
+            await _context.SaveChangesAsync();
+            return order.ID;
         }
 
         public async Task<int> Delete(int Id)
@@ -40,7 +46,8 @@ namespace Ciber.Services.Catalog.Orders
                 throw new CiberManagerException($"Cannot find Order: {Id}");
 
             _context.Orders.Remove(order);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return order.ID;
         }
 
         public async Task<List<OrderViewModel>> GetAll()
@@ -111,9 +118,46 @@ namespace Ciber.Services.Catalog.Orders
             return pageResult;
         }
 
+        public async Task<OrderViewModel> GetByID(int ID)
+        {
+            var query = from a in _context.Orders
+                        join b in _context.Products on a.ProductID equals b.ID
+                        join c in _context.Categories on b.CategoryID equals c.ID
+                        join d in _context.Customers on a.CustomerID equals d.ID
+                        where a.ID == ID
+                        select new { a, b, c, d } ;
+            var data = await query 
+                .Select(x => new OrderViewModel()
+                {
+                    ID = x.a.ID,
+                    ProductID = x.b.ID,
+                    ProductName = x.b.Name,
+                    CustomerID = x.d.ID,
+                    CustomerName = x.d.Name,
+                    TotalPrice = x.b.Price * x.a.Amount,
+                    Amount = x.a.Amount,
+                    OrderDate = x.a.OrderDate,
+                    CategoryName = x.c.Name
+                }).FirstOrDefaultAsync();
+            return data;
+        }
+
         public async Task<int> Update(OrderUpdateRequest obj)
         {
             throw new NotImplementedException();
         }
+        private async Task<bool> IsAmountValid(OrderCreateRequest order)
+        {
+            Product product = await _context.Products.FindAsync(order.ProductID);
+            if (product.Quantity < order.Amount)
+                return false;
+            return true;
+        }
+        private async void MinusQuantity(OrderCreateRequest order)
+        {
+            Product product = await _context.Products.FindAsync(order.ProductID);
+            product.Quantity -= order.Amount;
+        }
+
     }
 }

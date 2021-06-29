@@ -13,5 +13,6 @@ namespace Ciber.Services.Catalog.Orders
         Task<int> Delete(int Id);
         Task<List<ObjView>> GetAll();
         Task<PagedResult<ObjView>> GetAllPaging(ReqPage page);
+        Task<ObjView> GetByID(int ID);
     }
 }
