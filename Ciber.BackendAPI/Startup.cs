@@ -4,6 +4,8 @@ using Ciber.Services.Catalog.Orders;
 using Ciber.Services.System.Users;
 using Ciber.Utilities.Constants;
 using Ciber.ViewModels.Catalog.Orders;
+using Ciber.ViewModels.System.Users;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -45,7 +47,9 @@ namespace Ciber.BackendAPI
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             services.AddControllers().AddFluentValidation();
+            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
             // Swagger
             services.AddSwaggerGen(c =>
             {

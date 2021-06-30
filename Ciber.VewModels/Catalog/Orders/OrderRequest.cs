@@ -1,4 +1,5 @@
 ﻿using Ciber.ViewModels.Common;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,14 @@ namespace Ciber.ViewModels.Catalog.Orders
         public int ProductID { get; set; }
         public int Amount { get; set; }
     }
+    public class OrderCreateRequestValidator : AbstractValidator<OrderCreateRequest> 
+    {
+        public OrderCreateRequestValidator()
+        {
+            RuleFor(a => a.Amount).GreaterThan(0).WithMessage("Amount must be greater than 0");
+        }
+    }
+
     public class OrderUpdateRequest
     {
     }
@@ -28,7 +37,6 @@ namespace Ciber.ViewModels.Catalog.Orders
     }
     public class GetOrderPagingRequest : PagingRequestBase
     {
-        public int OrderID { get; set; }
-        public string CustomerName { get; set; }
+        public string CategoryName { get; set; }
     }
 }

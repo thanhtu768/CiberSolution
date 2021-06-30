@@ -86,15 +86,11 @@ namespace Ciber.Services.Catalog.Orders
                         join d in _context.Customers on a.CustomerID equals d.ID
                         select new { a, b, c, d };
 
-            if (!string.IsNullOrEmpty(page.CustomerName))
+            if (!string.IsNullOrEmpty(page.CategoryName))
             {
-                query = query.Where(x => x.d.Name.Contains(page.CustomerName));
+                query = query.Where(x => x.c.Name.Contains(page.CategoryName));
             }
-                
-            if(page.OrderID != 0)
-            {
-                query = query.Where(x => x.a.ID == page.OrderID);
-            }
+             
             int totalRow = await query.CountAsync();
             var data = await query.Skip((page.PageIndex - 1)*page.PageSize).Take(page.PageSize)
                 .Select(x => new OrderViewModel() {

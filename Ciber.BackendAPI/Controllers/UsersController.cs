@@ -21,7 +21,7 @@ namespace Ciber.BackendAPI.Controllers
         }
         [HttpPost("authenticate")]
         [AllowAnonymous]
-        public async Task<IActionResult> Authenticate([FromForm]LoginRequest request)
+        public async Task<IActionResult> Authenticate([FromBody]LoginRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -33,7 +33,7 @@ namespace Ciber.BackendAPI.Controllers
             {
                 return BadRequest("User Name or PassWord is incorrect");
             }
-            return Ok(new { token = resultToken });
+            return Ok(resultToken);
         }
     }
 }

@@ -30,8 +30,8 @@ namespace Ciber.BackendAPI.Controllers
         [HttpGet("paging-order")]
         public async Task<IActionResult> GetByPaging([FromQuery] GetOrderPagingRequest request)
         {
-            var orders = await _managerOrderService.GetAllPaging(request);
-            return Ok(orders);
+            var pageResult = await _managerOrderService.GetAllPaging(request);
+            return Ok(pageResult);
         }
         [HttpGet("get-by-id")]
         public async Task<IActionResult> GetOrderByID([FromQuery] int ID)
