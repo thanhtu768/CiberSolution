@@ -30,6 +30,20 @@ namespace Ciber.BackendAPI.Controllers
             //_logger.LogError("Test logger service from order controller");
             return Ok(orders);
         }
+        [HttpGet("list-source-prod")]
+        public async Task<IActionResult> GetListSourceProduct()
+        {
+            var orders = await _managerOrderService.ListSourceProduct();
+            //_logger.LogError("Test logger service from order controller");
+            return Ok(orders);
+        }
+        [HttpGet("list-source-cus")]
+        public async Task<IActionResult> GetListSourceCustomer()
+        {
+            var orders = await _managerOrderService.ListSourceCustomer();
+            //_logger.LogError("Test logger service from order controller");
+            return Ok(orders);
+        }
         [HttpGet("paging-order")]
         public async Task<IActionResult> GetByPaging([FromQuery] GetOrderPagingRequest request)
         {
@@ -46,7 +60,7 @@ namespace Ciber.BackendAPI.Controllers
             return Ok(order);
         }
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromForm] OrderCreateRequest request)
+        public async Task<IActionResult> Create([FromBody] OrderCreateRequest request)
         {
             if (!ModelState.IsValid)
             {

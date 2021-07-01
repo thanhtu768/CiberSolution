@@ -1,4 +1,5 @@
-﻿using Ciber.ViewModels.Common;
+﻿using Ciber.Data.Enititys;
+using Ciber.ViewModels.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,7 @@ namespace Ciber.Services.Catalog.Orders
         Task<List<ObjView>> GetAll();
         Task<PagedResult<ObjView>> GetAllPaging(ReqPage page);
         Task<ObjView> GetByID(int ID);
+        Task<List<Product>> ListSourceProduct();
+        Task<List<Customer>> ListSourceCustomer();
     }
 }

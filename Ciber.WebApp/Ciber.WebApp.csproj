@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ciber.Data\Ciber.Data.csproj" />
     <ProjectReference Include="..\Ciber.VewModels\Ciber.ViewModels.csproj" />
   </ItemGroup>
 

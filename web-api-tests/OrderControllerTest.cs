@@ -1,5 +1,6 @@
 ﻿using Ciber.BackendAPI.Controllers;
 using Ciber.Data.EF;
+using Ciber.Data.Enititys;
 using Ciber.Services.Catalog.Orders;
 using Ciber.Services.System.Logger;
 using Ciber.ViewModels.Catalog.Orders;
@@ -75,6 +76,16 @@ namespace web_api_tests
         }
 
         public Task<OrderViewModel> GetByID(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Customer>> ListSourceCustomer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Product>> ListSourceProduct()
         {
             throw new NotImplementedException();
         }

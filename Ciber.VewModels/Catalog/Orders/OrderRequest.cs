@@ -6,11 +6,12 @@ using System.Text;
 
 namespace Ciber.ViewModels.Catalog.Orders
 {
-    public class OrderCreateRequest
+    public class OrderCreateRequest:PagingRequestBase
     {
         public int CustomerID { get; set; }
         public int ProductID { get; set; }
         public int Amount { get; set; }
+        public string  OrderName { get; set; }
     }
     public class OrderCreateRequestValidator : AbstractValidator<OrderCreateRequest> 
     {

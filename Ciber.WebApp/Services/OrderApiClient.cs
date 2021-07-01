@@ -1,4 +1,5 @@
-﻿using Ciber.ViewModels.Catalog.Orders;
+﻿using Ciber.Data.Enititys;
+using Ciber.ViewModels.Catalog.Orders;
 using Ciber.ViewModels.Common;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -33,6 +34,47 @@ namespace Ciber.WebApp.Services
 
             var body = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<PagedResult<OrderViewModel>>(body);
+            return result;
+        }
+
+        public async Task<bool> CreateOrder(OrderCreateRequest request)
+        {
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            var json = JsonConvert.SerializeObject(request);
+            var httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", request.BearerToken);
+            var response = await client.PostAsync($"/api/order/create", httpContent);
+
+            //var body = await response.Content.ReadAsStringAsync();
+            //var result = JsonConvert.DeserializeObject<OrderViewModel>(body);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<List<Product>> GetListProduct(string token)
+        {
+            
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await client.GetAsync($"/api/order/list-source-prod");
+
+            var body = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<List<Product>>(body);
+            return result;
+        }
+        public async Task<List<Customer>> GetListCustomer(string token)
+        {
+
+            var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await client.GetAsync($"/api/order/list-source-cus");
+
+            var body = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<List<Customer>>(body);
             return result;
         }
     }

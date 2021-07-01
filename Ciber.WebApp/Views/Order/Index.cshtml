@@ -55,61 +55,40 @@
 </div>
 <div class="row justify-content-end">
     <div class="col-md-2">
-        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalCreateOrder">Create new order</button>
+        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalCreateOrder" onclick="CreateOrder()">Create new order</button>
     </div>
 </div>
 <div class="modal fade" id="modalCreateOrder" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createOrderTitle">Create new Order</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+            <div class="create_dialog">
+
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label" for="Name">Order Name</label>
-                        <div class="col-md-8">
-                            <input class="form-control" id="Name"></input>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label" for="ProductID">Product</label>
-                        <div class="col-md-8">
-                            <input class="form-control" id="ProductID"></input>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label" for="CustomerID">Customer</label>
-                        <div class="col-md-8">
-                            <input class="form-control" id="CustomerID"></input>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label" for="OrderDate">Order Date</label>
-                        <div class="col-md-8">
-                            <input type="date" class="form-control" id="OrderDate"></input>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-4 col-form-label" for="Amount">Amount</label>
-                        <div class="col-md-8">
-                            <input class="form-control" id="Amount"></input>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <div class="col text-center">
-                    <button class="btn btn-outline-primary">Create order</button>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>
 @section Scripts{
     <script type="text/javascript">
         $('.sortable-table').sortableTable();
+
+        function CreateOrder() {
+            $.ajax({
+                //type: "POST",
+                url: "/Order/Create",
+                success: function (result) {
+                    $('.create_dialog').html(result);
+
+                },
+                failure: function (result) {
+                    alert(result.responseText);
+                },
+                error: function (result) {
+                    alert(result.responseText);
+                }
+            });
+        }
     </script>
+    
 }
 

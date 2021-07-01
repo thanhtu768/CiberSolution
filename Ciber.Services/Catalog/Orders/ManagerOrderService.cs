@@ -154,6 +154,13 @@ namespace Ciber.Services.Catalog.Orders
             Product product = await _context.Products.FindAsync(order.ProductID);
             product.Quantity -= order.Amount;
         }
-
+        public async Task<List<Product>> ListSourceProduct()
+        {
+            return _context.Products.ToList(); 
+        }
+        public async Task<List<Customer>> ListSourceCustomer()
+        {
+            return _context.Customers.ToList();
+        }
     }
 }
