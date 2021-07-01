@@ -1,6 +1,8 @@
 using Ciber.Data.EF;
 using Ciber.Data.Entities;
 using Ciber.Services.Catalog.Orders;
+using Ciber.Services.System.ErorrHandler;
+using Ciber.Services.System.Logger;
 using Ciber.Services.System.Users;
 using Ciber.Utilities.Constants;
 using Ciber.ViewModels.Catalog.Orders;
@@ -18,8 +20,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,6 +33,7 @@ namespace Ciber.BackendAPI
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -48,6 +53,8 @@ namespace Ciber.BackendAPI
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+            services.ConfigureLoggerService();
+
             services.AddControllers().AddFluentValidation();
             services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
             // Swagger
@@ -119,6 +126,8 @@ namespace Ciber.BackendAPI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            //app.ConfigureExceptionHandler(logger);
+            app.ConfigureCustomExceptionMiddleware();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();

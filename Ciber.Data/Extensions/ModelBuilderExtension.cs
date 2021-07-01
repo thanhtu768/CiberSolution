@@ -47,10 +47,12 @@ namespace Ciber.Data.Extensions
             modelBuilder.Entity<AppUser>().HasData(new AppUser
             {
                 Id = new Guid(CUS_ID),
-                UserName = "TULT",
-                NormalizedUserName = "THANHTU",
+                UserName = "admin",
+                NormalizedUserName = "admin",
                 Email = "thanhtu@gmail.com",
                 NormalizedEmail = "thanhtu@gmail.com",
+                PhoneNumber = "0941079795",
+                PhoneNumberConfirmed = true,
                 EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "123qwe"),
                 SecurityStamp = string.Empty
