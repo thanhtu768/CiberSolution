@@ -23,7 +23,7 @@ namespace web_api_tests
         public OrderControllerTest()
         {
             _service = new ManagerOrderServiceFake();
-            _controller = new OrderController(null, null);
+            _controller = new OrderController(null);
         }
         [Fact]
         public void  Get_WhenCalled_ReturnOkResult()
@@ -91,6 +91,21 @@ namespace web_api_tests
         }
 
         public Task<int> Update(OrderUpdateRequest obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IManagerOrderService<OrderCreateRequest, OrderUpdateRequest, OrderViewModel, GetOrderPagingRequest>.Create(OrderCreateRequest obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IManagerOrderService<OrderCreateRequest, OrderUpdateRequest, OrderViewModel, GetOrderPagingRequest>.Delete(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IManagerOrderService<OrderCreateRequest, OrderUpdateRequest, OrderViewModel, GetOrderPagingRequest>.Update(OrderUpdateRequest obj)
         {
             throw new NotImplementedException();
         }

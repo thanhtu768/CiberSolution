@@ -16,10 +16,6 @@ namespace Ciber.Data.EF
         {
             
         }
-        public CiberDbContext() : base()
-        {
-
-        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             

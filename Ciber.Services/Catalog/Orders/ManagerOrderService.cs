@@ -20,34 +20,34 @@ namespace Ciber.Services.Catalog.Orders
         {
             _context = context;
         }
-        public async Task<int> Create(OrderCreateRequest obj)
+        public async void Create(OrderCreateRequest obj)
         {
-            if(await IsAmountValid(obj) == false)
+            if(await IsAmountValid(obj) == true)
             {
-                return -1;
+                var order = new Order()
+                {
+                    CustomerID = obj.CustomerID,
+                    ProductID = obj.ProductID,
+                    Amount = obj.Amount,
+                    OrderDate = DateTime.Now
+                };
+                _context.Orders.Add(order);
+                MinusQuantity(obj);
             }
-            var order = new Order()
-            {
-                CustomerID = obj.CustomerID,
-                ProductID = obj.ProductID,
-                Amount = obj.Amount,
-                OrderDate = DateTime.Now
-            };
-            _context.Orders.Add(order);
-             MinusQuantity(obj);
-            await _context.SaveChangesAsync();
-            return order.ID;
+           
+            //await _context.SaveChangesAsync();
+            //return order.ID;
         }
 
-        public async Task<int> Delete(int Id)
+        public async void  Delete(int Id)
         {
             var order = await _context.Orders.FindAsync(Id);
             if (order == null) 
                 throw new CiberManagerException($"Cannot find Order: {Id}");
 
             _context.Orders.Remove(order);
-            await _context.SaveChangesAsync();
-            return order.ID;
+            //await _context.SaveChangesAsync();
+            //return order.ID;
         }
 
         public async Task<List<OrderViewModel>> GetAll()
@@ -138,7 +138,7 @@ namespace Ciber.Services.Catalog.Orders
             return data;
         }
 
-        public async Task<int> Update(OrderUpdateRequest obj)
+        public async void Update(OrderUpdateRequest obj)
         {
             throw new NotImplementedException();
         }
@@ -162,5 +162,20 @@ namespace Ciber.Services.Catalog.Orders
         {
             return _context.Customers.ToList();
         }
+
+        //Task IManagerOrderService<OrderCreateRequest, OrderUpdateRequest, OrderViewModel, GetOrderPagingRequest>.Create(OrderCreateRequest obj)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //Task IManagerOrderService<OrderCreateRequest, OrderUpdateRequest, OrderViewModel, GetOrderPagingRequest>.Update(OrderUpdateRequest obj)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //Task IManagerOrderService<OrderCreateRequest, OrderUpdateRequest, OrderViewModel, GetOrderPagingRequest>.Delete(int Id)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

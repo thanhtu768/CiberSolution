@@ -9,9 +9,9 @@ namespace Ciber.Services.Catalog.Orders
 {
     public interface IManagerOrderService<ReqCreate,ReqEdit,ObjView,ReqPage>
     {
-        Task<int> Create(ReqCreate obj);
-        Task<int> Update(ReqEdit obj);
-        Task<int> Delete(int Id);
+        void Create(ReqCreate obj);
+        void Update(ReqEdit obj);
+        void Delete(int Id);
         Task<List<ObjView>> GetAll();
         Task<PagedResult<ObjView>> GetAllPaging(ReqPage page);
         Task<ObjView> GetByID(int ID);

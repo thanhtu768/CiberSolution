@@ -37,5 +37,9 @@ namespace Ciber.Services.Catalog
         {
             _dbContext.SaveChanges();
         }
+        public void SaveChangeAsync()
+        {
+            _dbContext.SaveChangesAsync();
+        }
     }
 }
