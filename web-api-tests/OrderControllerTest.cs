@@ -23,7 +23,7 @@ namespace web_api_tests
         public OrderControllerTest()
         {
             _service = new ManagerOrderServiceFake();
-            _controller = new OrderController(_service, null);
+            _controller = new OrderController(null, null);
         }
         [Fact]
         public void  Get_WhenCalled_ReturnOkResult()

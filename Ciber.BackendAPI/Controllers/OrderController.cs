@@ -1,4 +1,6 @@
-﻿using Ciber.Services.Catalog.Orders;
+﻿using Ciber.Data.EF;
+using Ciber.Services.Catalog;
+using Ciber.Services.Catalog.Orders;
 using Ciber.Services.System.Logger;
 using Ciber.ViewModels.Catalog.Orders;
 using Microsoft.AspNetCore.Authorization;
@@ -13,16 +15,18 @@ namespace Ciber.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   
     public class OrderController : ControllerBase
     {
         private readonly IManagerOrderService<OrderCreateRequest, OrderUpdateRequest, OrderViewModel, GetOrderPagingRequest> _managerOrderService;
         private readonly ILoggerManager _logger;
-        public OrderController(IManagerOrderService<OrderCreateRequest, OrderUpdateRequest, OrderViewModel, GetOrderPagingRequest> managerOrderService, ILoggerManager loggerManager)
+        private readonly UnitOfWork _unitOfWork = new UnitOfWork();
+        public OrderController(ILoggerManager loggerManager)
         {
-            _managerOrderService = managerOrderService;
+            _managerOrderService = _unitOfWork.OrdeService;
             _logger = loggerManager;
         }
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {

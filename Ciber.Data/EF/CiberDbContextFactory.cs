@@ -17,6 +17,7 @@ namespace Ciber.Data.EF
             var optionBuilder = new DbContextOptionsBuilder<CiberDbContext>();
             optionBuilder.UseSqlServer(connectionString);
             return new CiberDbContext(optionBuilder.Options);
+            //return new CiberDbContext();
         }
     }
 }
